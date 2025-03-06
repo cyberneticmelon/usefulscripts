@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+xwayland-satellite :10 &
+export DISPLAY=:10
+
+hexagon_launcher &
+flatland &
+atmosphere show the_grid & # OPTIONAL ATMOSPHERE
+
+WAYLAND_DISPLAY= manifold | simular
