@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if cargo is installed
-if ! command -v cargo &> /dev/null; then
+if ! command -v cargo &>/dev/null; then
   echo "Cargo not found! Please install Rust and Cargo first."
   exit 1
 fi
@@ -18,7 +18,7 @@ for dir in */; do
     # Check if it contains a Cargo.toml file
     if [[ -f "$dir/Cargo.toml" ]]; then
       echo "🛠️ Building project in $dir..."
-      (cd "$dir" && cargo build > /dev/null 2>&1)
+      (cd "$dir" && cargo build >/dev/null 2>&1)
       if [[ $? -eq 0 ]]; then
         successful_builds+=("$dir")
         echo "✅ Successfully built project in $dir."

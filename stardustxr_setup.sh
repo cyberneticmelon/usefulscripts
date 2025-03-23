@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ! command -v cargo &> /dev/null; then
+if ! command -v cargo &>/dev/null; then
   echo "Cargo not found! Please install Rust and Cargo first."
   exit 1
 fi
@@ -31,7 +31,7 @@ repos=(
   "https://github.com/StardustXR/protostar"
   "https://github.com/StardustXR/server"
   "https://github.com/StardustXR/telescope"
-  # Add up to 11 repositories here
+  # Add more repos if you'd like
 )
 
 # Clone all repositories
@@ -49,7 +49,7 @@ for dir in */; do
   if [[ -d "$dir" ]]; then
     if [[ -f "$dir/Cargo.toml" ]]; then
       echo "🛠 Building project in $dir..."
-      (cd "$dir" && cargo build > /dev/null 2>&1)
+      (cd "$dir" && cargo build >/dev/null 2>&1)
       if [[ $? -eq 0 ]]; then
         successful_builds+=("$dir")
         echo "✅ Successfully built project in $dir."
@@ -101,7 +101,7 @@ for dir in */; do
     echo "Checking $dir..."
 
     # Check if it's a Git repository
-    if git -C "$dir" rev-parse --git-dir > /dev/null 2>&1; then
+    if git -C "$dir" rev-parse --git-dir >/dev/null 2>&1; then
       # Get the current Git branch
       branch=$(git -C "$dir" branch --show-current)
 
@@ -189,7 +189,7 @@ if [[ -f "$config_file" ]]; then
 
   # Create a temporary file
   temp_file=$(mktemp)
-  cat <<EOF > "$temp_file"
+  cat <<EOF >"$temp_file"
 #!/usr/bin/env bash
 
 xwayland-satellite :10 &
@@ -210,7 +210,7 @@ EOF
   echo "✅ Updated startup config file atomically: $config_file"
 else
   echo "ℹ Creating startup config file: $config_file"
-  cat <<EOF > "$config_file"
+  cat <<EOF >"$config_file"
 #!/usr/bin/env bash
 
 xwayland-satellite :10 &
@@ -234,7 +234,7 @@ if [[ "$nobg_flag" == true ]]; then
 
   # Create a temporary file
   temp_file=$(mktemp)
-  sed '/# OPTIONAL ATMOSPHERE/s/^/# /' "$config_file" > "$temp_file"
+  sed '/# OPTIONAL ATMOSPHERE/s/^/# /' "$config_file" >"$temp_file"
 
   # Atomically replace the existing file
   mv "$temp_file" "$config_file"
@@ -257,7 +257,7 @@ else
     fi
 
     echo "ℹ Running 'atmosphere_dev set-default the_grid'..."
-      atmosphere_dev set-default the_grid
+    atmosphere_dev set-default the_grid
   else
     echo "❌ the_grid folder not found at: $the_grid_folder"
   fi
